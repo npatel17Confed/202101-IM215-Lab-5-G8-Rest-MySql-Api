@@ -17,3 +17,20 @@ function requestUsers(e) {
         }
     });
 }
+
+function retrieveUser(e) {
+
+    $.ajax({
+        type: "GET",
+        url: '/user/' + $('#userId').val(),
+        dataType: "json",
+        success: function (data) {
+            $('#firstName2').val(data[0].first_name);
+            $('#lastName2').val(data[0].last_name);
+
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
