@@ -1,3 +1,18 @@
+function createUser(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: '/user',
+        data: `first_name=${$('#firstName').val()}&last_name=${$('#lastName').val()}&age=${$('#age').val()}`,
+        success: function (data) {
+            requestUsers();
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
 function requestUsers(e) {
     $.ajax({
         type: "GET",
@@ -19,15 +34,14 @@ function requestUsers(e) {
 }
 
 function retrieveUser(e) {
-
+    e.preventDefault();
     $.ajax({
         type: "GET",
         url: '/user/' + $('#userId').val(),
         dataType: "json",
         success: function (data) {
-            $('#firstName2').val(data[0].first_name);
-            $('#lastName2').val(data[0].last_name);
-
+            $('#firstName2').val(data.first_name);
+            $('#lastName2').val(data.last_name);
         },
         error: function (request, status, error) {
             alert(request.responseText);

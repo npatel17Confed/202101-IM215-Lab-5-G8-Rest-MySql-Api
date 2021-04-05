@@ -78,8 +78,7 @@ router.delete('/user/:id', (request, response) => {
       console.error(err)
       response.sendStatus(500);
     } else {
-      // As exercise check if user was actually removed. 
-      console.log(result)
+      // As exercise check if user was actually removed.
       response.end()
     }
   })
