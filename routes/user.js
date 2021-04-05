@@ -9,8 +9,8 @@ const pool = mysql.createPool({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: 'password',
-  database: '202101-IM215-REST',
+  password: 'Pa$$w0rd',
+  database: '202101-IM215-REST-API',
 });
 
 function getNewConnection() {
@@ -28,13 +28,14 @@ router.get('/user', (request, response) => {
       console.error(err)
       response.sendStatus(500);
     } else {
+      console.log(rows);
       response.json(rows);
     }
   })
 })
 
 router.get('/user/:id', (request, response) => {
-  const {id} = request.params 
+  const {id} = request.params
   const connection = getNewConnection();
   const queryString = `Select * FROM user where id = ${id}`
 
@@ -45,7 +46,7 @@ router.get('/user/:id', (request, response) => {
     } else {
       response.json(rows[0]);
     }
-  }) 
+  })
 })
 
 router.post('/user', (request, response) => {
@@ -81,10 +82,7 @@ router.delete('/user/:id', (request, response) => {
       console.log(result)
       response.end()
     }
-  }) 
-
-  // users.splice(id, 1)
-  // response.end()
+  })
 })
 
 
