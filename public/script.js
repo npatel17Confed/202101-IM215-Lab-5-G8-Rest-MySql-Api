@@ -19,13 +19,16 @@ function requestUsers(e) {
         url: '/user',
         dataType: "json",
         success: function (data) {
-            var row = "";
+            var rowGet = "";
+            var rowDel = "";
             $(data).each(function () {
-                row += '<tr><td>' + this.first_name + '</td>';
-                row += '<td>' + this.last_name + '</td>';
-                row += '<td>' + this.age + '</td></tr>';
+                rowGet += '<tr><td>' + this.first_name + '</td>';
+                rowGet += '<td>' + this.last_name + '</td>';
+                rowGet += '<td>' + this.age + '</td></tr>';
+                rowDel += '<tr><td><a href="#" onclick="deleteUser(' + this.id + ')">' + this.first_name + ' ' + this.last_name + ' (' + this.id + ')</a></td></tr>';
             });
-            $('#table-body').html(row)
+            $('#table-body-get').html(rowGet)
+            $('#table-body-delete').html(rowDel);
         },
         error: function (request, status, error) {
             alert(request.responseText);
@@ -42,6 +45,19 @@ function retrieveUser(e) {
         success: function (data) {
             $('#firstName2').val(data.first_name);
             $('#lastName2').val(data.last_name);
+        },
+        error: function (request, status, error) {
+            alert(request.responseText);
+        }
+    });
+}
+
+function deleteUser(id) {
+    $.ajax({
+        type: "DELETE",
+        url: '/user/' + id,
+        success: function () {
+            requestUsers();
         },
         error: function (request, status, error) {
             alert(request.responseText);
